@@ -1,8 +1,27 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@model IEnumerable<Blog.Models.Post>;
+<div>
+    @* Card *@
+    <h2>List of Blogs</h2>
+    <div class="d-flex gap-4 flex-sm-wrap">
+        @foreach (var blog in Model)
+        {
+            <div class="card" style="width: 28rem; min-width: 20rem">
+                <img class="card-img-top" src=@blog.ImagePath alt="Card image cap">
+                <p class="list-group-item">Cras justo odio</p>
+            <div class="card-body">
+                <h5 class="card-title">@blog.Title</h5>
+                <p class="card-text">@blog.Subtitle</p>
+            </div>
+            <div class="card-body">
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+            </div>
+        </div>
+        }
+    </div>
+    @* End of Card *@
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>

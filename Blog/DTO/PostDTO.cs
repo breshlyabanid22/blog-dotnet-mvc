@@ -1,16 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Blog.Models;
+using System.ComponentModel.DataAnnotations;
 
-namespace Blog.Models
+namespace Blog.DTO
 {
-    public class Post
+    public class PostDTO
     {
         public int Id { get; set; }
-        [MaxLength(50)]
         public required string Title { get; set; }
 
         public string? Subtitle { get; set; }
-
-        [MaxLength(200)]
         public string? Content { get; set; }
 
         public string? ImagePath { get; set; }
@@ -18,8 +16,6 @@ namespace Blog.Models
         public string Author { get; set; } = "Anonymous User";
 
         public DateTime PublishedDate { get; set; } = DateTime.Now;
-
-        public ICollection<Comment>? Comments { get; set; }
 
         public bool IsPublished { get; set; }
     }

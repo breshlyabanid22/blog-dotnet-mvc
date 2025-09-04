@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Blog.Models;
+using Blog.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Controllers
@@ -8,25 +9,34 @@ namespace Blog.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IBlogService _blogService;
+
+        public HomeController(IBlogService blogService, ILogger<HomeController> logger)
         {
+            _blogService = blogService;
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var posts = await _blogService.GetAllPostsAsync();
+            return View(posts);
+        }
+        public async Task<IActionResult> ListOfBlogs()
+        {
+            var blogs = await _blogService.GetAllPostsAsync();
+            return View(blogs);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+
+
+
+
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //public IActionResult Error()
+        //{
+        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        //}
     }
 }
