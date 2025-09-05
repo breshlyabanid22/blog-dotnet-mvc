@@ -17,9 +17,10 @@ namespace Blog.Services
             throw new NotImplementedException();
         }
 
-        public Task AddPostAsync(Post post)
+        public async Task AddPostAsync(Post post)
         {
-            throw new NotImplementedException();
+            _context.Posts.Add(post);
+            await _context.SaveChangesAsync();
         }
 
         public Task AddUserAsync(User user)

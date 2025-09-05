@@ -1,0 +1,34 @@
+﻿@model Blog.ViewModels.PostViewModel;
+@{
+    ViewData["Title"] = "Create Post";
+}
+<div class="w-75 container">
+    <h3>Create Post</h3>
+    <form asp-action="Create" method="post" enctype="multipart/form-data" class="d-flex flex-column gap-2">
+        <div class="form-group">
+            <label asp-for="Title">Title</label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Subtitle">Description</label>
+            <input asp-for="Subtitle" class="form-control" />
+            <span asp-validation-for="Subtitle" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Content">Content</label>
+            <textarea asp-for="Content" class="form-control"></textarea>
+            <span asp-validation-for="Content" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Author">Author</label>
+            <input asp-for="Author" class="form-control">
+            <span asp-validation-for="Author" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ImageFile">Uplaod Photo</label>
+            <input type="file" asp-for="ImageFile" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary my-4">Post</button>
+    </form>
+</div>

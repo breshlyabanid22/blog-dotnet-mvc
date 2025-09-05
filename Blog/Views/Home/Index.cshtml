@@ -1,27 +1,33 @@
-﻿@{
+﻿@model Blog.ViewModels.PostListViewModel;
+@{
     ViewData["Title"] = "Home Page";
 }
-@model IEnumerable<Blog.Models.Post>;
 <div>
     @* Card *@
-    <h2>List of Blogs</h2>
-    <div class="d-flex gap-4 flex-sm-wrap">
-        @foreach (var blog in Model)
+    <h3>Latest Blogs</h3>
+    @if(Model.Posts != null && Model.Posts.Any())
+    {
+    <div class="d-flex gap-2 flex-column flex-sm-wrap">
+        @foreach (var post in Model.Posts)
         {
-            <div class="card" style="width: 28rem; min-width: 20rem">
-                <img class="card-img-top" src=@blog.ImagePath alt="Card image cap">
-                <p class="list-group-item">Cras justo odio</p>
-            <div class="card-body">
-                <h5 class="card-title">@blog.Title</h5>
-                <p class="card-text">@blog.Subtitle</p>
-            </div>
-            <div class="card-body">
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-            </div>
-        </div>
+                <div class="card mb-3" style="width: 100%;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src=@post.ImagePath class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">@post.Title</h5>
+                                <p class="card-text">@post.Subtitle</p>
+                                <p class="card-text"><small class="text-body-secondary">@post.PublishedDate</small></p>
+                                <p class="card-text"><small class="text-body-secondary">Created by: @post.Author</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         }
     </div>
+    }
     @* End of Card *@
 
 </div>
