@@ -13,5 +13,8 @@ namespace Blog.Services
         Task AddCommentAsync(Comment comment);
         Task<User?> GetUserByUsernameAsync(string username);
         Task AddUserAsync(User user);
+        Task<bool> PostExistAsync(int id);
+
+        string GetImagePath(IFormFile? imageFile);
     }
 }

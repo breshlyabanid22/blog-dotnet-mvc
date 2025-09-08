@@ -60,9 +60,35 @@ namespace Blog.Services
             throw new NotImplementedException();
         }
 
-        public Task UpdatePostAsync(Post post)
+        public async Task UpdatePostAsync(Post post)
         {
-            throw new NotImplementedException();
+            _context.Posts.Update(post);
+            await _context.SaveChangesAsync();
         }
+        public async Task<bool> PostExistAsync(int id)
+        {
+            return await _context.Posts.AnyAsync(e => e.Id == id);
+        }
+
+        public  string GetImagePath(IFormFile imageFile)
+        {
+            if (imageFile != null && imageFile.Length > 0)
+            {
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+                var uniqueFileName = Guid.NewGuid().ToString() + "_" + imageFile.FileName;
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    imageFile.CopyTo(fileStream);
+                }
+                return "/images/" + uniqueFileName;
+            }
+            return null;
+        }
+
     }
 }

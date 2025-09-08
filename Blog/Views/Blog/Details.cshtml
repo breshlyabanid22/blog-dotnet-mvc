@@ -11,6 +11,7 @@
     <h5 class="text-muted">@Model.Subtitle</h5>
     <div>
         <p class="text-body-secondary text-black fw-bold">By @Model.Author on @Model.PublishedDate.ToString("MMMM dd, yyyy")</p>
+        <a asp-action="Edit" asp-controller="Blog" asp-route-id=@Model.Id>Edit</a>
         <hr />  
     </div>
     <p style="text-align: justify">@Model.Content</p>
