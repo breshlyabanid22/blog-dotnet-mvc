@@ -9,7 +9,7 @@
         public IFormFile? ImageFile { get; set; }
 
         public string? ImagePath { get; set; }
-        public string? Author { get; set; }
+        public string Author { get; set; } = "Anonymous User";
         public bool IsPublished { get; set; } = false;
 
         public DateTime PublishedDate { get; set; } = DateTime.Now;

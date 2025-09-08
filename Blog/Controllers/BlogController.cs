@@ -47,10 +47,30 @@ namespace Blog.Controllers
                 Content = post.Content,
                 ImagePath = imagePath, 
                 Author = post.Author,
-                IsPublished = post.IsPublished 
+                IsPublished = true
             });
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var post = await _blogService.GetPostByIdAsync(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            var viewModel = new PostViewModel
+            {
+                Id = post.Id,
+                Title = post.Title,
+                Subtitle = post.Subtitle,
+                Content = post.Content,
+                ImagePath = post.ImagePath,
+                Author = post.Author,
+            };
+            return View(viewModel);
+
         }
     }
 }

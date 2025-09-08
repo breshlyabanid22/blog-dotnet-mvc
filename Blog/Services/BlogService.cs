@@ -1,5 +1,6 @@
 ﻿using Blog.Data;
 using Blog.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Services
@@ -44,9 +45,14 @@ namespace Blog.Services
             throw new NotImplementedException();
         }
 
-        public Task<Post?> GetPostByIdAsync(int id)
+        public async Task<Post?> GetPostByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var post = await _context.Posts.FindAsync(id);
+            if (post == null)
+            {
+                return null;
+            }
+            return post;
         }
 
         public Task<User?> GetUserByUsernameAsync(string username)

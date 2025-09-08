@@ -7,24 +7,28 @@
     <h3>Latest Blogs</h3>
     @if(Model.Posts != null && Model.Posts.Any())
     {
-    <div class="d-flex gap-2 flex-column flex-sm-wrap">
+    <div class="d-flex gap-1 flex-column">
         @foreach (var post in Model.Posts)
         {
-                <div class="card mb-3" style="width: 100%;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src=@post.ImagePath class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
+            <div class="card mb-3" style="width: 100%;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <a class="text-decoration-none" asp-controller="Blog" asp-action="Details" asp-route-id=@post.Id>
+                           <img src=@post.ImagePath class="img-fluid rounded-start" alt="Blog Banner">
+                        </a>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <a class="text-decoration-none text-dark" asp-controller="Blog" asp-action="Details" asp-route-id=@post.Id>
                                 <h5 class="card-title">@post.Title</h5>
-                                <p class="card-text">@post.Subtitle</p>
-                                <p class="card-text"><small class="text-body-secondary">@post.PublishedDate</small></p>
-                                <p class="card-text"><small class="text-body-secondary">Created by: @post.Author</small></p>
-                            </div>
+                            </a>
+                            <p class="card-text">@post.Subtitle</p>
+                            <p class="card-text"><small class="text-body-secondary">@post.PublishedDate</small></p>
+                            <p class="card-text"><small class="text-body-secondary">Created by: @post.Author</small></p>
                         </div>
                     </div>
                 </div>
+            </div>
         }
     </div>
     }

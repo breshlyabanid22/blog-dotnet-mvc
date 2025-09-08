@@ -1,0 +1,17 @@
+﻿@model Blog.ViewModels.PostViewModel;
+
+
+@{
+    ViewData["Title"] = "Post Details";
+}
+
+<div class="d-flex flex-column mx-5 gap-3">
+    <img src="@Model.ImagePath" alt="Blog Image" class="img-fluid mb-4"/>
+    <h1>@Model.Title</h1>
+    <h5 class="text-muted">@Model.Subtitle</h5>
+    <div>
+        <p class="text-body-secondary text-black fw-bold">By @Model.Author on @Model.PublishedDate.ToString("MMMM dd, yyyy")</p>
+        <hr />  
+    </div>
+    <p style="text-align: justify">@Model.Content</p>
+</div>

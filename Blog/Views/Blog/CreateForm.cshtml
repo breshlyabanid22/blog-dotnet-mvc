@@ -3,7 +3,7 @@
     ViewData["Title"] = "Create Post";
 }
 <div class="w-75 container">
-    <h3>Create Post</h3>
+    <h3>Create Blog Post</h3>
     <form asp-action="Create" method="post" enctype="multipart/form-data" class="d-flex flex-column gap-2">
         <div class="form-group">
             <label asp-for="Title">Title</label>
@@ -17,7 +17,7 @@
         </div>
         <div class="form-group">
             <label asp-for="Content">Content</label>
-            <textarea asp-for="Content" class="form-control"></textarea>
+            <textarea asp-for="Content" class="form-control" rows="8"></textarea>
             <span asp-validation-for="Content" class="text-danger"></span>
         </div>
         <div class="form-group">
@@ -29,6 +29,6 @@
             <label asp-for="ImageFile">Uplaod Photo</label>
             <input type="file" asp-for="ImageFile" class="form-control">
         </div>
-        <button type="submit" class="btn btn-primary my-4">Post</button>
+        <button type="submit" class="btn btn-primary my-4">Create Post</button>
     </form>
 </div>
