@@ -29,9 +29,9 @@ namespace Blog.Services
             throw new NotImplementedException();
         }
 
-        public Task DeletePostAsync(int id)
+        public async Task DeletePostAsync(int id)
         {
-            throw new NotImplementedException();
+            await _context.Posts.Where(p => p.Id == id).ExecuteDeleteAsync();
         }
 
         public async Task<IEnumerable<Post>> GetAllPostsAsync()
@@ -87,7 +87,7 @@ namespace Blog.Services
                 }
                 return "/images/" + uniqueFileName;
             }
-            return null;
+            return string.Empty;
         }
 
     }

@@ -27,17 +27,26 @@ namespace Blog.Controllers
         {
            var imagePath = _blogService.GetImagePath(post.ImageFile);
 
-            await _blogService.AddPostAsync(new Models.Post
+            try
             {
-                Title = post.Title,
-                Subtitle = post.Subtitle,
-                Content = post.Content,
-                ImagePath = imagePath, 
-                Author = post.Author,
-                IsPublished = true
-            });
+                await _blogService.AddPostAsync(new Models.Post
+                {
+                    Title = post.Title,
+                    Subtitle = post.Subtitle,
+                    Content = post.Content,
+                    ImagePath = imagePath, 
+                    Author = post.Author,
+                    IsPublished = true
+                });
+                TempData["SuccessMessage"] = "Post created successfully.";
+                return RedirectToAction("Index", "Home");
+            }catch(Exception ex)
+            {
+                TempData["ErrorMessage"] = "An error occurred while creating the post.";
+                ModelState.AddModelError(string.Empty, "An error occurred while uploading the image: " + ex.Message);
+                return View("CreateForm", post);
+            }
 
-            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> Details(int id)
@@ -61,21 +70,22 @@ namespace Blog.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            var post = await _blogService.GetPostByIdAsync(id);
-            if(post== null)
-            {
-                return NotFound();
-            }
-            var viewModel = new PostViewModel
-            {
-                Id = post.Id,
-                Title = post.Title,
-                Subtitle = post.Subtitle,
-                Content = post.Content,
-                ImagePath = post.ImagePath,
-                Author = post.Author,
-            };
-            return View(viewModel);
+                var post = await _blogService.GetPostByIdAsync(id);
+                if(post== null)
+                {
+                    return NotFound();
+                }
+                var viewModel = new PostViewModel
+                {
+                    Id = post.Id,
+                    Title = post.Title,
+                    Subtitle = post.Subtitle,
+                    Content = post.Content,
+                    ImagePath = post.ImagePath,
+                    Author = post.Author,
+                };
+                return View(viewModel);
+
         }
 
         [HttpPost]
@@ -97,6 +107,7 @@ namespace Blog.Controllers
                     existingPost.ImagePath = _blogService.GetImagePath(post.ImageFile) ?? existingPost.ImagePath;
 
                     await _blogService.UpdatePostAsync(existingPost);
+                    TempData["SuccessMessage"] = "Post updated successfully.";
                     return RedirectToAction("Details", new { id = post.Id });
                 }
                 catch (DbUpdateConcurrencyException)
@@ -111,6 +122,17 @@ namespace Blog.Controllers
                 }
             }
             return View(post);
+        }
+        public async Task<IActionResult> Delete(int id)
+        {
+            var post = await _blogService.GetPostByIdAsync(id);
+            if(post == null)
+            {
+                return NotFound();
+            }
+            await _blogService.DeletePostAsync(id);
+            TempData["SuccessMessage"] = "Post deleted successfully.";
+            return RedirectToAction("Index", "Home");
         }
     }
 }
